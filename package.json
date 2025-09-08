@@ -1,0 +1,25 @@
+{
+  "name": "excuse-generator",
+  "version": "1.0.0",
+  "description": "A simple and funny web app that generates random excuses when you didn’t finish your work, show up late, or skip a meeting.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanajitjana/excuse-generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sanajitjana/excuse-generator/issues"
+  },
+  "homepage": "https://github.com/sanajitjana/excuse-generator#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}
