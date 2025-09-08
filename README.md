@@ -2,11 +2,6 @@
 
 A simple and funny web app that generates random excuses when you didn’t finish your work, show up late, or skip a meeting.
 
-## Features
-- Generates random funny excuses
-- Simple UI with a button
-- Easy to host on GitHub Pages
-
 ## How to Use
 1. Clone the repository
 2. Open `index.html` in your browser
