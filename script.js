@@ -1,19 +1,180 @@
+// Global variables
 let excuses = [];
+let currentExcuse = '';
 
-fetch('excuses.json')
-  .then(response => response.json())
-  .then(data => {
-    excuses = data;
-  })
-  .catch(err => {
-    console.error('Failed to load excuses:', err);
-  });
+// Theme management
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+const currentTheme = localStorage.getItem('theme') || 'light';
 
-document.getElementById('generate-btn').addEventListener('click', () => {
-  if (excuses.length === 0) return;
+// Apply saved theme
+if (currentTheme === 'dark') {
+    body.setAttribute('data-theme', 'dark');
+}
 
-  const randomIndex = Math.floor(Math.random() * excuses.length);
-  const excuse = excuses[randomIndex];
+// DOM elements
+const generateBtn = document.getElementById('generate-btn');
+const excuseDisplay = document.getElementById('excuse-display');
+const excuseActions = document.getElementById('excuse-actions');
+const copyBtn = document.getElementById('copy-btn');
+const shareBtn = document.getElementById('share-btn');
 
-  document.getElementById('excuse-display').textContent = excuse;
+// Initialize app
+document.addEventListener('DOMContentLoaded', () => {
+    loadExcuses();
+    setupEventListeners();
 });
+
+// Load excuses from JSON
+async function loadExcuses() {
+    try {
+        const response = await fetch('excuses.json');
+        if (!response.ok) throw new Error('Failed to load excuses');
+        excuses = await response.json();
+    } catch (err) {
+        console.error('Failed to load excuses:', err);
+        // Fallback excuses
+        excuses = [
+            "My creativity is temporarily out of order.",
+            "The excuse generator is having an existential crisis.",
+            "All my excuses are currently being peer-reviewed."
+        ];
+    }
+}
+
+// Setup event listeners
+function setupEventListeners() {
+    // Theme toggle
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    // Generate button
+    generateBtn.addEventListener('click', handleGenerateExcuse);
+    
+    // Action buttons
+    copyBtn.addEventListener('click', copyExcuse);
+    shareBtn.addEventListener('click', shareExcuse);
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', handleKeyboardShortcuts);
+}
+
+// Theme toggle functionality
+function toggleTheme() {
+    const currentTheme = body.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    
+    // Add animation to theme toggle button
+    themeToggle.style.transform = 'scale(0.8) rotate(360deg)';
+    setTimeout(() => {
+        themeToggle.style.transform = '';
+    }, 300);
+}
+
+// Main excuse generation
+async function handleGenerateExcuse() {
+    if (excuses.length === 0) return;
+    
+    // Add loading state
+    generateBtn.disabled = true;
+    generateBtn.innerHTML = `
+        <span class="btn-content">
+            <i class="fas fa-spinner fa-spin"></i>
+            <span class="btn-text">Crafting...</span>
+        </span>
+    `;
+    
+    // Simulate slight delay for better UX
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    const randomIndex = Math.floor(Math.random() * excuses.length);
+    currentExcuse = excuses[randomIndex];
+    
+    // Display the excuse
+    excuseDisplay.textContent = currentExcuse;
+    
+    // Show action buttons
+    excuseActions.classList.add('show');
+    
+    // Reset generate button
+    generateBtn.disabled = false;
+    generateBtn.innerHTML = `
+        <span class="btn-content">
+            <i class="fas fa-magic"></i>
+            <span class="btn-text">Generate Another</span>
+        </span>
+    `;
+}
+
+// Copy excuse to clipboard
+async function copyExcuse() {
+    if (!currentExcuse) return;
+    
+    try {
+        await navigator.clipboard.writeText(currentExcuse);
+        
+        // Animation feedback
+        copyBtn.style.transform = 'scale(1.2)';
+        setTimeout(() => {
+            copyBtn.style.transform = '';
+        }, 200);
+    } catch (err) {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = currentExcuse;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+    }
+}
+
+// Share excuse functionality
+async function shareExcuse() {
+    if (!currentExcuse) return;
+    
+    const shareData = {
+        title: 'My Creative Excuse',
+        text: currentExcuse,
+        url: window.location.href
+    };
+    
+    try {
+        if (navigator.share) {
+            await navigator.share(shareData);
+        } else {
+            // Fallback - copy to clipboard with additional text
+            const shareText = `"${currentExcuse}"\n\nGenerated by Excuse Generator: ${window.location.href}`;
+            await navigator.clipboard.writeText(shareText);
+        }
+    } catch (err) {
+        console.error('Error sharing:', err);
+    }
+}
+
+// Keyboard shortcuts
+function handleKeyboardShortcuts(e) {
+    // Spacebar or Enter to generate
+    if (e.code === 'Space' || e.code === 'Enter') {
+        if (e.target === document.body) {
+            e.preventDefault();
+            handleGenerateExcuse();
+        }
+    }
+    
+    // Ctrl+C to copy
+    if (e.ctrlKey && e.code === 'KeyC' && currentExcuse) {
+        if (e.target === document.body) {
+            e.preventDefault();
+            copyExcuse();
+        }
+    }
+    
+    // Ctrl+D to toggle theme
+    if (e.ctrlKey && e.code === 'KeyD') {
+        e.preventDefault();
+        toggleTheme();
+    }
+}

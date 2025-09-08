@@ -4,14 +4,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Excuse Generator</title>
+    <title>🎭 Excuse Generator</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <h1>Random Excuse Generator</h1>
-    <button id="generate-btn">Generate Excuse</button>
-    <p id="excuse-display">Click the button to get a random excuse!</p>
+    <!-- Animated Background -->
+    <div class="background-animation"></div>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+    </button>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🎭</span>
+                <h1 class="logo-text">Excuse<span class="highlight">Generator</span></h1>
+            </div>
+            <p class="subtitle">Your creative alibi assistant</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Excuse Display Card -->
+            <div class="excuse-card">
+                <div class="excuse-content">
+                    <p id="excuse-display" class="excuse-text">
+                        Ready to craft the perfect excuse? Click the button below!
+                    </p>
+                </div>
+                <div class="excuse-actions" id="excuse-actions" style="display: none;">
+                    <button class="action-btn" id="copy-btn" title="Copy excuse">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                    <button class="action-btn" id="share-btn" title="Share excuse">
+                        <i class="fas fa-share"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Generate Button -->
+            <div class="generate-section">
+                <button id="generate-btn" class="generate-btn">
+                    <span class="btn-content">
+                        <i class="fas fa-magic"></i>
+                        <span class="btn-text">Generate Excuse</span>
+                    </span>
+                </button>
+            </div>
+        </main>
+    </div>
+
     <script src="script.js"></script>
 </body>
 
