@@ -12,23 +12,25 @@
   --primary-color: #6366f1;
   --secondary-color: #8b5cf6;
   --accent-color: #f59e0b;
-  --background-start: #667eea;
-  --background-end: #764ba2;
+  --background-start: #4a5d8a;
+  --background-end: #5a4d7a;
   --surface-color: rgba(255, 255, 255, 0.25);
   --surface-border: rgba(255, 255, 255, 0.18);
   --text-primary: #1f2937;
   --text-light: rgba(255, 255, 255, 0.9);
+  --title-color: #ffffff;
   --shadow-color: rgba(0, 0, 0, 0.1);
   --blur-amount: 20px;
 }
 
 [data-theme="dark"] {
   /* Dark Theme Colors */
-  --background-start: #1a1a2e;
-  --background-end: #16213e;
+  --background-start: #1e1e2e;
+  --background-end: #1a1a2a;
   --surface-color: rgba(255, 255, 255, 0.1);
   --surface-border: rgba(255, 255, 255, 0.2);
   --text-primary: #f9fafb;
+  --title-color: #ffffff;
   --shadow-color: rgba(0, 0, 0, 0.3);
 }
 
@@ -160,22 +162,15 @@ body {
 .logo-text {
   font-size: 2.5rem;
   font-weight: 700;
-  color: var(--text-light);
-  text-shadow: 0 2px 10px var(--shadow-color);
+  color: var(--title-color);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .highlight {
-  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(45deg, #ff6b6b, #feca57);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-}
-
-.subtitle {
-  font-size: 1.1rem;
-  color: var(--text-light);
-  opacity: 0.8;
-  font-weight: 300;
 }
 
 /* Main Content */
@@ -267,17 +262,19 @@ body {
   font-size: 1.2rem;
   font-weight: 600;
   color: white;
-  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(45deg, #e55555, #d4a574);
   border: none;
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 10px 30px rgba(229, 85, 85, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .generate-btn:hover {
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 15px 40px rgba(229, 85, 85, 0.5);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .generate-btn:disabled {
