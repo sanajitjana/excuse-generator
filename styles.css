@@ -264,7 +264,6 @@ kbd {
 
 .logo-icon {
   font-size: 3rem;
-  animation: bounce 2s ease-in-out infinite;
 }
 
 .logo-text {
@@ -444,6 +443,7 @@ kbd {
     transform: translateY(0);
   }
 }
+
 
 /* Responsive Design */
 @media (max-width: 768px) {

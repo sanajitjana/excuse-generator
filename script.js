@@ -26,6 +26,7 @@ const closeModal = document.getElementById("close-modal");
 document.addEventListener("DOMContentLoaded", () => {
   loadExcuses();
   setupEventListeners();
+  updateCopyrightYear();
 });
 
 // Load excuses from JSON
@@ -56,6 +57,12 @@ function setupEventListeners() {
   helpModal.addEventListener("click", hideHelpModalOnOutsideClick);
   document.addEventListener("keydown", handleKeyboardShortcuts);
   document.addEventListener("keydown", handleModalTabNavigation);
+}
+
+// Update copyright year dynamically
+function updateCopyrightYear() {
+  const copyright = document.getElementById('copyright');
+  copyright.innerHTML = `&copy; ${new Date().getFullYear()} Excuse Generator. All rights reserved.`;
 }
 
 // Theme toggle functionality
