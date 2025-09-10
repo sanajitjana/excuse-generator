@@ -18,6 +18,9 @@ const excuseDisplay = document.getElementById("excuse-display");
 const excuseActions = document.getElementById("excuse-actions");
 const copyBtn = document.getElementById("copy-btn");
 const shareBtn = document.getElementById("share-btn");
+const helpBtn = document.getElementById("help-btn");
+const helpModal = document.getElementById("help-modal");
+const closeModal = document.getElementById("close-modal");
 
 // Initialize app
 document.addEventListener("DOMContentLoaded", () => {
@@ -48,7 +51,11 @@ function setupEventListeners() {
   generateBtn.addEventListener("click", handleGenerateExcuse);
   copyBtn.addEventListener("click", copyExcuse);
   shareBtn.addEventListener("click", shareExcuse);
+  helpBtn.addEventListener("click", showHelpModal);
+  closeModal.addEventListener("click", hideHelpModal);
+  helpModal.addEventListener("click", hideHelpModalOnOutsideClick);
   document.addEventListener("keydown", handleKeyboardShortcuts);
+  document.addEventListener("keydown", handleModalTabNavigation);
 }
 
 // Theme toggle functionality
@@ -147,8 +154,70 @@ async function shareExcuse() {
   }
 }
 
+// Help modal functions
+function showHelpModal() {
+  helpModal.style.display = "block";
+  document.body.style.overflow = "hidden"; // Prevent background scrolling
+
+  // Focus the close button for accessibility
+  setTimeout(() => {
+    closeModal.focus();
+  }, 100);
+}
+
+function hideHelpModal() {
+  helpModal.style.display = "none";
+  document.body.style.overflow = "auto";
+}
+
+function hideHelpModalOnOutsideClick(e) {
+  if (e.target === helpModal) {
+    hideHelpModal();
+  }
+}
+
+// Handle tab navigation within modal
+function handleModalTabNavigation(e) {
+  if (helpModal.style.display !== "block") return;
+
+  const focusableElements = helpModal.querySelectorAll(
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+  );
+  const firstElement = focusableElements[0];
+  const lastElement = focusableElements[focusableElements.length - 1];
+
+  if (e.key === "Tab") {
+    if (e.shiftKey) {
+      // Shift + Tab
+      if (document.activeElement === firstElement) {
+        e.preventDefault();
+        lastElement.focus();
+      }
+    } else {
+      // Tab
+      if (document.activeElement === lastElement) {
+        e.preventDefault();
+        firstElement.focus();
+      }
+    }
+  }
+}
+
 // Keyboard shortcuts
 function handleKeyboardShortcuts(e) {
+  // Escape to close modal
+  if (e.code === "Escape" && helpModal.style.display === "block") {
+    hideHelpModal();
+    return;
+  }
+
+  // F1 to open help modal
+  if (e.code === "F1") {
+    e.preventDefault();
+    showHelpModal();
+    return;
+  }
+
   // Spacebar or Enter to generate
   if (e.code === "Space" || e.code === "Enter") {
     if (e.target === document.body) {
