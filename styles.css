@@ -591,3 +591,27 @@ button:focus-visible,
   color: var(--accent-color);
   background: rgba(255, 255, 255, 0.1);
 }
+
+/* Toast Container to Show Message */
+#toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.toast {
+  background-color: #333;
+  color: #fff;
+  padding: 8px 16px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
+  font-family: sans-serif;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
