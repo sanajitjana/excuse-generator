@@ -322,7 +322,7 @@ kbd {
 
 /* Excuse Actions */
 .excuse-actions {
-  display: flex;
+  display: none;
   justify-content: center;
   gap: 1rem;
   opacity: 0;
@@ -331,6 +331,7 @@ kbd {
 }
 
 .excuse-actions.show {
+  display: flex;   
   opacity: 1;
   transform: translateY(0);
 }
