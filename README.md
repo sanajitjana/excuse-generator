@@ -12,8 +12,7 @@ A simple and funny web app that generates random excuses when you didn’t finis
 ---
 
 ## 📸 Screenshot
-![alt text](./images/pic1.JPG)
-![alt text](./images/pic2.JPG)
+![image](./images/image.png)
 
 ---
 
@@ -22,6 +21,7 @@ A simple and funny web app that generates random excuses when you didn’t finis
 - `styles.css` → Styling  
 - `script.js` → Logic for generating excuses  
 - `excuses.json` → List of excuses  
+- `images` → Store static assets
 
 ---
 
