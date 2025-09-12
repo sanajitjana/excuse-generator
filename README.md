@@ -1,4 +1,4 @@
-# 🎭 Random Excuse Generator
+# 🎭 Excuse Generator
 
 A simple and funny web app that generates random excuses when you didn’t finish your work, show up late, or skip a meeting.
 
